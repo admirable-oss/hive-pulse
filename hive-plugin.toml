@@ -1,0 +1,36 @@
+id = "hive-pulse"
+name = "Hive Pulse"
+version = "0.1.0"
+description = "Real-time observability for coding agents: state, attention signals, notifications, and activity history."
+min_hive_version = "0.10.0"
+platforms = ["darwin", "linux"]
+
+[[startup]]
+command = ["./hive-pulse.sh", "watch"]
+restart = true
+
+[[events]]
+on = "agent.state"
+command = ["./hive-pulse.sh", "event"]
+
+[[events]]
+on = "process.exited"
+command = ["./hive-pulse.sh", "event"]
+
+[[events]]
+on = "process.started"
+command = ["./hive-pulse.sh", "event"]
+
+[[events]]
+on = "process.recovered"
+command = ["./hive-pulse.sh", "event"]
+
+[[actions]]
+id = "refresh"
+title = "Refresh Pulse now"
+command = ["./hive-pulse.sh", "once"]
+
+[[actions]]
+id = "history"
+title = "Show recent Pulse activity"
+command = ["./hive-pulse.sh", "history"]
